@@ -1,27 +1,26 @@
-from flask import Flask, request, jsonify
-from flask_ngrok import run_with_ngrok
+from flask import Flask, request
+import firebase_admin
+from firebase_admin import credentials, db
+
+# Use a service account
+cred = credentials.Certificate('./serviceAccountKey.json')
+firebase_admin.initialize_app(cred, {
+    'databaseURL' : 'https://polar-city-332413-default-rtdb.firebaseio.com'
+})
 
 app = Flask(__name__)
-run_with_ngrok(app)
-
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    req = request.get_json(silent=True, force=True)
+    data = request.get_json()
     
-    try:
-        action = req.get('queryResult').get('action')
-    except AttributeError:
-        return 'json error'
+    # Get a reference to the database
+    ref = db.reference('webhook_data')
+
+    # Push data to the database
+    ref.push(data)
     
-    if action == 'input.welcome':
-        res = {'fulfillmentText': 'Hello, Welcome to my Dialogflow agent!'}
-    elif action == 'input.unknown':
-        res = {'fulfillmentText': 'I am sorry, I did not understand that. Can you please repeat?'}
-    else:
-        res = {'fulfillmentText': 'This is a response from webhook.'}
-    
-    return jsonify(res)
+    return 'OK', 200
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000)
