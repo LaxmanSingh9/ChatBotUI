@@ -34,19 +34,8 @@
 
   <!-- Kore.ai Chatbot (retained without modification) -->
   <div class="kore-chat-container" id="chatContainer">
-    <!-- Placeholder for Kore.ai Chatbot -->
-    <link rel='stylesheet' href='https://bots.kore.ai/webclient/UI/dist/kore-ai-sdk.min.css'>
-    <script src='https://bots.kore.ai/api/platform/websdkjs/b20386dae6e34c50a30353abdee935d1feb9010a1f874ce49571df27e4a43d5fst44'></script>
-    <script>
-      KoreSDK.show(KoreSDK.chatConfig);
-
-      function resizeChatContainer() {
-        var chatContainer = document.getElementById('chatContainer');
-        chatContainer.style.height = 'auto';
-      }
-
-      KoreSDK.registerForEvent('chatExpanded', resizeChatContainer);
-    </script>
+  
+  <script> window.OnlimChatbot = { widgetId: "186ca01b-684e-4b84-bb58-caeb1cbb01aa", apiKey: "7a51bb570bfa202414f9e5d5faaebe69", baseUrl: "https://app.onlim.com", lang: "en" }; (function () { var ol = window.Onlim; if (typeof ol !== 'function') { var o = function() { o.a(arguments); }; o.q = []; o.a = function(args) { o.q.push(args); }; window.Onlim = o; var d = document; var s = d.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = "https://app.onlim.com/chat-app/js/host.js"; var x = d.getElementsByTagName("script")[0]; x.parentNode.insertBefore(s, x); } })();</script>
   </div>
 </body>
 </html>
